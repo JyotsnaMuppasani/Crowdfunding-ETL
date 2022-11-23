@@ -34,6 +34,13 @@ ORDER BY "Remaining Goal Amount" DESC;
 -- Create a table, "email_backers_remaining_goal_amount" that contains the email address of each backer in descending order, 
 -- and has the first and last name of each backer, the cf_id, company name, description, 
 -- end date of the campaign, and the remaining amount of the campaign goal as "Left of Goal". 
+SELECT bac.email, bac.first_name, bac.last_name, cam.cf_id, cam.description, cam.end_date, cam.goal-cam.pledged AS "Left of Goal"
+INTO email_backers_remaining_goal_amount
+FROM backers as bac
+INNER JOIN campaign as cam
+ON bac.cf_id = cam.cf_id
+WHERE outcome='live'
+ORDER BY bac.last_name;
 
 
 
